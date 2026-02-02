@@ -351,29 +351,7 @@ LOG_FILE=./logs/flowsync.log
 ```
 
 ---
-🛠️ NPM Commands
-Command	Description	Notes
-npm run test	Test connection to FlowSync	Checks API connectivity and credentials
-npm run sync	Manual transaction synchronization	Dry-run by default
-npm run status	Check transaction status	Returns exit codes
-npm run monitor	Start continuous monitoring	Sends SMS/email alerts
-npm run health	Full health check	Tests all integrations
-npm run dev	Development mode	Uses Nodemon for auto reload
-npm run flowsync	Run full FlowSync engine	Fetches, transforms, sends to Xero, updates FlowSync, logs results
-💡 npm run flowsync executes the complete FlowSync pipeline:
-Fetch transactions from FlowSync
-Apply all transformations (including IGN → 666)
-Send transactions to Xero
-Update FlowSync with xero_transaction_id
-Generate logs and reports
-🔄 IGN → Xero Synchronization
-The script sync-ign-to-xero.js:
-Detects transactions containing IGN or 666
-Converts them to Xero BANKTRANSFER format
-Maps all IGN transactions → account 666
-Updates FlowSync after successful sync
-Handles logging and errors
-Run example:
+
 # Test IGN → Xero logic
 node test-ign-sync.js
 
