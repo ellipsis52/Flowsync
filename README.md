@@ -356,38 +356,232 @@ LOG_FILE=./logs/flowsync.log
 node test-ign-sync.js
 
 # Real synchronization
+Perfect, Steve! 🌟 Here’s the **full English version** of your FlowSync README, GitHub-ready, with all NPM commands explained—including `npm run flowsync`—and IGN → Xero sync details:
+
+---
+
+````markdown
+# 🚀 FlowSync Local Development & Monitoring
+
+![FlowSync Banner](https://img.shields.io/badge/FlowSync-Local%20Development-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
+![NPM](https://img.shields.io/badge/NPM-9%2B-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+
+**FlowSync** is a multi-platform financial transaction synchronization and monitoring system, integrated with Xero and various payment providers.
+
+---
+
+## 📋 Table of Contents
+
+- [Architecture](#architecture)
+- [Installation](#installation)
+- [Configuration](#configuration)
+- [NPM Commands](#npm-commands)
+- [IGN → Xero Synchronization](#ign--xero-synchronization)
+- [Monitoring](#monitoring)
+- [Health Check](#health-check)
+- [Logs & Reports](#logs--reports)
+- [Security](#security)
+- [Troubleshooting](#troubleshooting)
+- [Contributing](#contributing)
+- [License](#license)
+
+---
+
+## 🏗️ Architecture
+
+### Architecture Diagram
+
+```mermaid
+graph TB
+    A[Payment Providers] --> B[FlowSync Middleware]
+    B --> C[Xero Accounting]
+    B --> D[Local Development]
+    D --> E[CLI Scripts]
+    D --> F[Monitoring]
+    D --> G[Health Check]
+    F --> H[Alerts]
+    G --> I[Reports]
+    
+    subgraph "Payment Providers"
+        A1[PayPal]
+        A2[Stripe]
+        A3[Wise]
+        A4[Payflow.buzz]
+        A5[IGN Auto]
+    end
+    
+    subgraph "Local Development"
+        E1[test-connection.js]
+        E2[manual-sync.js]
+        E3[check-status.js]
+        E4[monitoring.js]
+        E5[health-check.js]
+        E6[sync-ign-to-xero.js]
+    end
+````
+
+---
+
+## 📥 Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/ellipsis52/Flowsync.git
+cd Flowsync
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure environment
+cp .env.example .env
+# Edit .env with your API keys
+
+# 4. Test connection
+npm run test
+```
+
+---
+
+## ⚙️ Configuration
+
+Example `.env`:
+
+```env
+FLOWSYNC_API_URL=https://api.flowsync.buzz
+FLOWSYNC_API_KEY=your_api_key_here
+FLOWSYNC_CLIENT_ID=your_client_id_here
+FLOWSYNC_TENANT_ID=your_tenant_id_here
+
+XERO_CLIENT_ID=your_xero_client_id
+XERO_CLIENT_SECRET=your_xero_client_secret
+XERO_TENANT_ID=webtechnicom_tenant
+XERO_ACCESS_TOKEN=your_xero_token
+
+MONITORING_ENABLED=true
+CHECK_INTERVAL=300000
+ALERT_PHONE=+17034571882
+ALERT_EMAIL=alerts@example.com
+
+LOG_LEVEL=info
+LOG_FILE=./logs/flowsync.log
+```
+
+---
+
+## 🛠️ NPM Commands
+
+| Command            | Description                        | Notes                                                              |
+| ------------------ | ---------------------------------- | ------------------------------------------------------------------ |
+| `npm run test`     | Test connection to FlowSync        | Checks API connectivity and credentials                            |
+| `npm run sync`     | Manual transaction synchronization | Dry-run by default                                                 |
+| `npm run status`   | Check transaction status           | Returns exit codes                                                 |
+| `npm run monitor`  | Start continuous monitoring        | Sends SMS/email alerts                                             |
+| `npm run health`   | Full health check                  | Tests all integrations                                             |
+| `npm run dev`      | Development mode                   | Uses Nodemon for auto reload                                       |
+| `npm run flowsync` | **Run full FlowSync engine**       | Fetches, transforms, sends to Xero, updates FlowSync, logs results |
+
+> 💡 **`npm run flowsync`** executes the complete FlowSync pipeline:
+>
+> 1. Fetch transactions from FlowSync
+> 2. Apply all transformations (including IGN → 666)
+> 3. Send transactions to Xero
+> 4. Update FlowSync with `xero_transaction_id`
+> 5. Generate logs and reports
+
+---
+
+## 🔄 IGN → Xero Synchronization
+
+The script `sync-ign-to-xero.js`:
+
+* Detects transactions containing `IGN` or `666`
+* Converts them to Xero **BANKTRANSFER** format
+* Maps all IGN transactions → account **666**
+* Updates FlowSync after successful sync
+* Handles logging and errors
+
+**Run example:**
+
+```bash
+# Test IGN → Xero logic
+node test-ign-sync.js
+
+# Real synchronization
 node sync-ign-to-xero.js
-👁️ Monitoring
-Checks every 5 minutes
-Sends SMS/email alerts on failure
-Detailed logs in ./logs/flowsync.log
-Maintains status history and JSON reports
-🏥 Health Check
-Checks: API connection, integrations, sync status, recent transactions, Xero connection, performance
-Exit codes:
-0 = Healthy
-1 = Warning
-2 = Unhealthy
-3 = Critical
-📊 Logs & Reports
+```
+
+---
+
+## 👁️ Monitoring
+
+* Checks every 5 minutes
+* Sends SMS/email alerts on failure
+* Detailed logs in `./logs/flowsync.log`
+* Maintains status history and JSON reports
+
+---
+
+## 🏥 Health Check
+
+* Checks: API connection, integrations, sync status, recent transactions, Xero connection, performance
+* Exit codes:
+
+  * 0 = Healthy
+  * 1 = Warning
+  * 2 = Unhealthy
+  * 3 = Critical
+
+---
+
+## 📊 Logs & Reports
+
+```
 logs/
 ├── flowsync.log
 ├── status-history.json
 ├── health-history.json
 └── health-summary-*.json
-tail -f logs/flowsync.log to view live logs
-grep "ERROR\|WARNING" logs/flowsync.log to filter errors
-🔐 Security
-Never commit .env
-Use minimal-permission tokens
-TLS 1.3 + AES-256 for sensitive data
-Audit logs and set alerting
-✅ Solves
-Automatic detection of IGN → 666
-Correct transformation to Xero BANKTRANSFER
-Bidirectional update (FlowSync ↔ Xero)
-Complete logging and alerts
-Prevents xero_transaction_id: null
+```
+
+* `tail -f logs/flowsync.log` to view live logs
+* `grep "ERROR\|WARNING" logs/flowsync.log` to filter errors
+
+---
+
+## 🔐 Security
+
+* Never commit `.env`
+* Use minimal-permission tokens
+* TLS 1.3 + AES-256 for sensitive data
+* Audit logs and set alerting
+
+---
+
+## ✅ Solves
+
+1. Automatic detection of IGN → 666
+2. Correct transformation to Xero BANKTRANSFER
+3. Bidirectional update (FlowSync ↔ Xero)
+4. Complete logging and alerts
+5. Prevents `xero_transaction_id: null`
+
+---
+
+## License
+
+MIT
+
+```
+
+---
+
+If you want, I can also make a **GitHub Pages-ready version** so your README displays **like a web page with Mermaid diagrams and badges**—fully visual.  
+
+Do you want me to do that?
+```
 
 ## 👁️ Monitoring
 
