@@ -213,6 +213,244 @@ grep "ERROR\|WARNING" logs/flowsync.log
 # .gitignore
 .env
 *.env.local
+
+# 🚀 FlowSync Local Development & Monitoring
+
+![FlowSync Banner](https://img.shields.io/badge/FlowSync-Local%20Development-blue)
+![Node.js](https://img.shields.io/badge/Node.js-18%2B-green)
+![NPM](https://img.shields.io/badge/NPM-9%2B-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen)
+
+**FlowSync** is a multi-platform financial transaction synchronization and monitoring platform integrated with Xero and various payment providers. This README covers the local environment setup, CLI scripts, NPM commands, monitoring, and health-checks for a complete operational setup.
+
+---
+
+## 📋 Table of Contents
+
+- [Introduction](#-introduction)
+- [Architecture](#-architecture)
+- [Installation](#-installation)
+- [Configuration](#-configuration)
+- [NPM Commands](#-npm-commands)
+- [Monitoring](#-monitoring)
+- [Health Check](#-health-check)
+- [Logs & Reports](#-logs--reports)
+- [Security](#-security)
+- [Troubleshooting](#-troubleshooting)
+- [Contributing](#-contributing)
+- [License](#-license)
+
+---
+
+## 🏗️ Architecture
+
+### Diagram
+
+```mermaid
+graph TB
+    A[Payment Providers] --> B[FlowSync Middleware]
+    B --> C[Xero Accounting]
+    B --> D[Local Development]
+    D --> E[CLI Scripts]
+    D --> F[Monitoring]
+    D --> G[Health Check]
+    F --> H[Alerts]
+    G --> I[Reports]
+
+    subgraph "Payment Providers"
+        A1[PayPal]
+        A2[Stripe]
+        A3[Wise]
+        A4[Payflow.buzz]
+        A5[IGN Auto]
+    end
+
+    subgraph "Local Development"
+        E1[test-connection.js]
+        E2[manual-sync.js]
+        E3[check-status.js]
+        E4[monitoring.js]
+        E5[health-check.js]
+    end
+````
+
+### Data Flow
+
+```
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│   Payment    │     │   FlowSync   │     │     Xero     │
+│   Provider   │────▶│   Middleware │────▶│   Accounting │
+└──────────────┘     └──────────────┘     └──────────────┘
+        │                    │                    │
+        ▼                    ▼                    ▼
+┌──────────────┐     ┌──────────────┐     ┌──────────────┐
+│ Transaction  │     │   Data       │     │   Invoice    │
+│  Processing  │     │ Transformation │   │   Creation   │
+└──────────────┘     └──────────────┘     └──────────────┘
+```
+
+---
+
+## 📥 Installation
+
+### Prerequisites
+
+* Node.js 18+
+* NPM 9+
+* FlowSync account with API key
+* Access to your payment providers
+
+### Quick Setup
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/your-org/flowsync-local.git
+cd flowsync-local
+
+# 2. Install dependencies
+npm install
+
+# 3. Configure environment
+cp .env.example .env
+# Edit .env with your API keys
+
+# 4. Test the connection
+npm run test
+```
+
+---
+
+## ⚙️ Configuration
+
+### `.env` File
+
+```env
+FLOWSYNC_API_URL=https://api.flowsync.buzz
+FLOWSYNC_API_KEY=your_api_key_here
+FLOWSYNC_CLIENT_ID=your_client_id_here
+FLOWSYNC_TENANT_ID=your_tenant_id_here
+
+XERO_CLIENT_ID=your_xero_client_id
+XERO_CLIENT_SECRET=your_xero_client_secret
+XERO_TENANT_ID=webtechnicom_tenant
+
+MONITORING_ENABLED=true
+CHECK_INTERVAL=300000
+ALERT_THRESHOLD=3
+
+ALERT_PHONE=+17034571882
+ALERT_EMAIL=alerts@example.com
+
+TWILIO_SID=your_twilio_sid
+TWILIO_TOKEN=your_twilio_token
+TWILIO_FROM=+15017122661
+
+LOG_LEVEL=info
+LOG_FILE=./logs/flowsync.log
+```
+
+---
+
+## 🛠️ NPM Commands
+
+| Command            | Description                                                                                                                                                                                                                                                    | Exit Codes                        |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------- |
+| `npm run test`     | Test FlowSync API connection                                                                                                                                                                                                                                   | 0=OK, 1=Fail                      |
+| `npm run sync`     | Manual sync of transactions                                                                                                                                                                                                                                    | 0=OK, 1=Warning, 2=Fail           |
+| `npm run status`   | Check current sync status                                                                                                                                                                                                                                      | 0=OK, 1=Warning, 2=Fail           |
+| `npm run monitor`  | Start continuous monitoring                                                                                                                                                                                                                                    | N/A                               |
+| `npm run health`   | Full health check report                                                                                                                                                                                                                                       | 0=Healthy, 1=Warning, 2=Unhealthy |
+| `npm run dev`      | Start in dev mode (Nodemon)                                                                                                                                                                                                                                    | N/A                               |
+| `npm run flowsync` | **Run the full FlowSync engine**: fetches transactions from all payment providers, transforms them according to Xero mapping rules (IGN → 666 included), syncs them to Xero, updates monitoring & health-check reports, and triggers alerts if failures occur. | N/A                               |
+
+### Usage Examples
+
+```bash
+# Test connection
+npm run test
+
+# Manual sync (dry-run by default)
+npm run sync
+
+# Check status
+npm run status
+
+# Start continuous monitoring
+npm run monitor
+
+# Run health check
+npm run health
+
+# Full FlowSync engine
+npm run flowsync
+```
+
+> 💡 `npm run flowsync` is the **master command**: fetch → transform → sync → monitor → log → alert.
+
+---
+
+## 👁️ Monitoring
+
+* Continuous checks every 5 minutes
+* SMS/Email alerts on failure
+* Detailed logging in `logs/flowsync.log`
+* Status history in `status-history.json`
+* Health check history in `health-history.json`
+
+---
+
+## 🏥 Health Check
+
+* API Connection (<1000ms)
+* Integration health (100% healthy)
+* Last sync (<24h)
+* Transactions ≥1 today
+* Xero success rate >95%
+* Performance metrics (<1000ms response)
+
+---
+
+## 📊 Logs & Reports
+
+```
+logs/
+├── flowsync.log
+├── status-history.json
+├── health-history.json
+└── health-summary-*.json
+```
+
+View logs:
+
+```bash
+tail -f logs/flowsync.log
+grep "ERROR\|WARNING" logs/flowsync.log
+ls -la logs/health-summary-*.json | head -5
+```
+
+---
+
+## 🔐 Security
+
+* Never commit `.env`
+* Use limited-access tokens
+* Encrypt sensitive data
+* Audit logs regularly
+
+---
+
+## License
+
+MIT
+
+```
+
+---
+
+Si tu veux, je peux te faire **une version finale optimisée avec badges actifs, liens cliquables, et sections prêtes pour GitHub Pages**, pour que tout ton README soit **professionnel et “GitHub-ready”**.  
+
+Veux‑tu que je fasse ça ?
 ```
 
 ---
