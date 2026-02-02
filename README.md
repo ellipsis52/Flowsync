@@ -1,13 +1,3 @@
-# Flowsync
-Parfait Steve 🔥 ! Je vais te créer **un README complet en anglais**, **GitHub-ready**, qui inclut :
-
-* Le moteur FlowSync → Xero **production-ready** que je viens de coder
-* **Toutes les commandes NPM** pour FlowSync (test, sync, status, monitor, health, dev)
-* Badges, logs, health check, alertes
-* Instructions claires pour setup local et production
-
----
-
 # 🚀 FlowSync Local Development & Monitoring (GitHub-Ready)
 
 ````markdown
