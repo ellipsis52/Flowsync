@@ -513,17 +513,6 @@ node test-ign-sync.js
 node sync-ign-to-xero.js
 ```
 
----
-
-## 👁️ Monitoring
-
-* Checks every 5 minutes
-* Sends SMS/email alerts on failure
-* Detailed logs in `./logs/flowsync.log`
-* Maintains status history and JSON reports
-
----
-
 ## 🏥 Health Check
 
 * Checks: API connection, integrations, sync status, recent transactions, Xero connection, performance
@@ -568,20 +557,6 @@ logs/
 4. Complete logging and alerts
 5. Prevents `xero_transaction_id: null`
 
----
-
-## License
-
-MIT
-
-```
-
----
-
-If you want, I can also make a **GitHub Pages-ready version** so your README displays **like a web page with Mermaid diagrams and badges**—fully visual.  
-
-Do you want me to do that?
-```
 
 ## 👁️ Monitoring
 
