@@ -438,23 +438,8 @@ ls -la logs/health-summary-*.json | head -5
 * Encrypt sensitive data
 * Audit logs regularly
 
----
-
-## License
 
 MIT
-
-```
-
----
-
-Si tu veux, je peux te faire **une version finale optimisée avec badges actifs, liens cliquables, et sections prêtes pour GitHub Pages**, pour que tout ton README soit **professionnel et “GitHub-ready”**.  
-
-Veux‑tu que je fasse ça ?
-```
-
----
-
 ## License
 
 MIT © 2026 FlowSync
