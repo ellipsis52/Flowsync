@@ -220,19 +220,3 @@ grep "ERROR\|WARNING" logs/flowsync.log
 ## License
 
 MIT © 2026 FlowSync
-
-```
-
----
-
-Si tu veux, Steve, je peux maintenant te **créer aussi le dépôt GitHub public prêt à l’emploi** avec :  
-
-- Ce README complet  
-- `index.js` moteur complet  
-- Dossier `logs/` avec `.gitkeep`  
-- Scripts CLI (test, sync, status, monitor, health, dev)  
-
-Tu pourras **cloner et lancer FlowSync immédiatement en prod**.  
-
-Veux‑tu que je fasse ça ?
-```
